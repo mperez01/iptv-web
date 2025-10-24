@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Web Player</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header>
+      <button id="toggleMenuBtn" class="icon-button">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.75 12H20.25" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.75 6H20.25" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.75 18H20.25" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <h1>Player</h1>
+      <div class="header-info">IPTV</div>
+      <button id="theme-toggle" class="icon-button">
+        <svg class="sun" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.25C15.1756 17.25 17.75 14.6756 17.75 11.5C17.75 8.32436 15.1756 5.75 12 5.75C8.82436 5.75 6.25 8.32436 6.25 11.5C6.25 14.6756 8.82436 17.25 12 17.25Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 3.25V1.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.25 5.25L4.25 4.25" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.25 12H1.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.25 18.75L4.25 19.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 20.75V22.25" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M18.75 18.75L19.75 19.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M20.75 12H22.25" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M18.75 5.25L19.75 4.25" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg class="moon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.25 13.5C21.011 15.0746 20.2358 16.5139 19.0653 17.613C17.8948 18.712 16.3983 19.4055 14.7963 19.5881C13.1944 19.7706 11.5819 19.4353 10.1629 18.6318C8.7439 17.8283 7.59884 16.5976 6.90549 15.1314C6.21214 13.6652 5.99992 11.9947 6.30307 10.3903C6.60622 8.78586 7.41137 7.33681 8.59919 6.2723C9.78701 5.20779 11.2915 4.58851 12.8718 4.50451C14.4521 4.42051 16.0134 4.87755 17.32 5.79005" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </header>
+
+    <div class="layout" id="layout">
+      <aside id="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-label">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.25 18.75L18.75 12L13.25 5.25" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.25 18.75L10.75 12L5.25 5.25" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Fuente</span>
+          </div>
+          <div class="input-group">
+            <input id="urlInput" type="url" placeholder="URL de la lista M3U">
+            <button id="loadUrlBtn">Cargar</button>
+          </div>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-label">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.25 4.75H5.75L4.75 5.75V18.25L5.75 19.25H18.25L19.25 18.25V13.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.75 10.75H19.25V4.75L13.75 10.75Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Proxy CORS (opcional)</span>
+          </div>
+          <div class="input-group" style="align-items:center">
+            <input id="useProxy" type="checkbox" />
+            <label for="useProxy">Activar Proxy</label>
+          </div>
+          <input id="proxyInput" type="text" placeholder="Ej: https://corsproxy.io/?" style="margin-top: 8px;" />
+          <p class="note small" style="margin-top:8px;">Si tienes problemas de carga, activa un proxy. Ej: <code>https://corsproxy.io/?</code></p>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-label">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.25 4.75L5.75 4.75C5.19772 4.75 4.75 5.19772 4.75 5.75V18.25C4.75 18.8023 5.19772 19.25 5.75 19.25H18.25C18.8023 19.25 19.25 18.8023 19.25 18.25V12.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M18.25 5.75L14.25 9.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.25 4.75H19.25V7.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Canales</span>
+          </div>
+          <input id="search" type="text" placeholder="Buscar...">
+          <div class="channels" id="channelsList"></div>
+        </div>
+
+        <div id="status" class="status" style="display:none"></div>
+      </aside>
+
+      <div class="main-content">
+        <main>
+          <div class="card player-wrap">
+            <div class="video-container">
+              <video id="video" controls playsinline></video>
+            </div>
+            <div class="controls">
+              <div id="currentInfo">Ningún canal seleccionado</div>
+              <div class="control-buttons">
+                <button id="muteBtn">Silenciar</button>
+                <button id="pipBtn">PIP</button>
+                <button id="openNewTabBtn">URL</button>
+              </div>
+            </div>
+          </div>
+          <footer>
+            <div class="note">
+              <strong>Aviso:</strong> No se alojan ni distribuyen streams. El usuario es responsable del contenido.
+            </div>
+          </footer>
+        </main>
+      </div>
+    </div>
+  </div>
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script src="script.js"></script>
+</body>
+</html>

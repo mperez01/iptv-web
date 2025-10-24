@@ -1,0 +1,372 @@
+/* ====================================================================
+   THEMING
+==================================================================== */
+:root {
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --transition-fast: 0.2s cubic-bezier(0.32, 0.72, 0, 1);
+  --transition-slow: 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+[data-theme="light"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f2f2f7;
+  --bg-tertiary: #e5e5ea;
+  --text-primary: #000000;
+  --text-secondary: #636366;
+  --separator-color: #d1d1d6;
+  --accent-color: #007aff;
+  --accent-text-color: #ffffff;
+  --error-color: #ff3b30;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --sidebar-blur-bg: rgba(242, 242, 247, 0.8);
+}
+
+[data-theme="dark"] {
+  --bg-primary: #000000;
+  --bg-secondary: #1c1c1e;
+  --bg-tertiary: #2c2c2e;
+  --text-primary: #ffffff;
+  --text-secondary: #8e8e93;
+  --separator-color: #38383a;
+  --accent-color: #0a84ff;
+  --accent-text-color: #ffffff;
+  --error-color: #ff453a;
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  --sidebar-blur-bg: rgba(28, 28, 30, 0.8);
+}
+
+/* ====================================================================
+   BASE & LAYOUT
+==================================================================== */
+html {
+  color-scheme: light dark;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.app {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 24px;
+  margin-top: 24px;
+  transition: grid-template-columns var(--transition-slow);
+}
+
+.main-content {
+  min-width: 0;
+}
+
+/* ====================================================================
+   HEADER
+==================================================================== */
+header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 56px;
+  border-bottom: 1px solid var(--separator-color);
+}
+
+h1 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.header-info {
+  margin-left: auto;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* ====================================================================
+   SIDEBAR
+==================================================================== */
+#sidebar {
+  transition: width var(--transition-slow);
+}
+
+.sidebar-section {
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  margin-bottom: 24px;
+  padding: 16px;
+  transition: background-color var(--transition-fast);
+}
+
+.sidebar-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  transition: opacity var(--transition-slow);
+}
+
+/* Collapsed Sidebar Styles */
+.layout.sidebar-collapsed {
+  grid-template-columns: 80px 1fr;
+}
+
+.layout.sidebar-collapsed .sidebar-label span,
+.layout.sidebar-collapsed .input-group,
+.layout.sidebar-collapsed textarea,
+.layout.sidebar-collapsed #proxyInput,
+.layout.sidebar-collapsed .note {
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  display: none;
+}
+
+.layout.sidebar-collapsed .sidebar-label {
+  justify-content: center;
+}
+
+/* ====================================================================
+   COMPONENTS (Buttons, Inputs, etc.)
+==================================================================== */
+.input-group {
+  display: flex;
+  gap: 8px;
+}
+
+input[type='text'],
+input[type='url'],
+textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--separator-color);
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+input[type='text']:focus,
+input[type='url']:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px var(--accent-color)4d;
+}
+
+button {
+  background-color: var(--accent-color);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  color: var(--accent-text-color);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color var(--transition-fast);
+  white-space: nowrap;
+}
+
+button:hover {
+  filter: brightness(1.1);
+}
+
+.icon-button {
+  background: transparent;
+  color: var(--text-secondary);
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.icon-button:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+#theme-toggle .moon, #theme-toggle .sun { display: none; }
+[data-theme="light"] #theme-toggle .moon { display: block; }
+[data-theme="dark"] #theme-toggle .sun { display: block; }
+
+/* ====================================================================
+   PLAYER & CHANNELS
+==================================================================== */
+.player-wrap {
+  position: sticky;
+  top: 24px;
+}
+
+.video-container {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--separator-color);
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.controls {
+  padding-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+#currentInfo {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.control-buttons {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+}
+
+.channels {
+  max-height: 45vh;
+  overflow-y: auto;
+  margin: 0 -8px;
+  padding: 0 8px;
+  /* Required for VirtualList */
+  position: relative;
+}
+
+.channel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  /* Required for VirtualList */
+  position: absolute;
+  width: calc(100% - 16px); /* Account for padding */
+  height: 60px; /* Fixed height for virtualization */
+  box-sizing: border-box;
+}
+
+.channel:hover {
+  background-color: var(--bg-tertiary);
+}
+
+.channel.playing {
+  background-color: var(--accent-color)26;
+}
+
+.logo {
+  width: 48px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 4px;
+  background-color: var(--bg-tertiary);
+  flex-shrink: 0;
+}
+
+.meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.meta .title {
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.meta .group {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ====================================================================
+   MOBILE & RESPONSIVE
+==================================================================== */
+@media (max-width: 768px) {
+  .app { padding: 0 16px; }
+  h1 { font-size: 1.1rem; }
+  .header-info { display: none; }
+
+  .layout, .layout.sidebar-collapsed {
+    grid-template-columns: 1fr;
+  }
+
+  #sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 85%;
+    max-width: 320px;
+    height: 100%;
+    z-index: 100;
+    background-color: var(--sidebar-blur-bg);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform var(--transition-slow);
+    padding: 16px;
+    box-sizing: border-box;
+    border-right: 1px solid var(--separator-color);
+  }
+
+  #sidebar.is-open {
+    transform: translateX(0);
+  }
+  
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #00000080;
+    z-index: 99;
+    opacity: 0;
+    transition: opacity var(--transition-slow);
+    pointer-events: none;
+  }
+
+  .sidebar-overlay.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .player-wrap { position: static; }
+}
